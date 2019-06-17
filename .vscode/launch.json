@@ -4,7 +4,12 @@
             "type": "java",
             "name": "CodeLens (Launch) - App",
             "request": "launch",
+<<<<<<< HEAD
             "mainClass": "Algoritmi.App"
+=======
+            "mainClass": "Algoritmi.App",
+            "projectName": "Algoritmi"
+>>>>>>> 2c19c22b02041a1635ffe59ca17dd5938e790f81
         }
     ]
 }
