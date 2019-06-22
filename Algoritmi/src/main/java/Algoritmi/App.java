@@ -5,10 +5,10 @@ public final class App {
 
     private final static int insertCost = 6;
     private final static int deleteCost = 2;
-    private final static int copyCost = 1;
-    private final static int replaceCost = 2;
-    private final static int twiddleCost = 4;
-    private final static int killCost = 1;
+    private final static int copyCost = -1;
+    private final static int replaceCost = 8;
+    private final static int twiddleCost = 2;
+    private final static int killCost = 4;
 
     private double[][] cost;
     private String[][] operations;
@@ -71,7 +71,7 @@ public final class App {
         }
         for(int i=0; i<=x.length()-1; i++){
             if(solution.cost[i][y.length()] + App.killCost < solution.cost[x.length()][y.length()]){
-                solution.cost[x.length()][y.length()] = solution.cost[i][y.length()];
+                solution.cost[x.length()][y.length()] = solution.cost[i][y.length()] + App.killCost;
                 solution.operations[x.length()][y.length()] = "KILL " + i;
             }
         }

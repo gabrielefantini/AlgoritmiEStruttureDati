@@ -1,5 +1,4 @@
 package Algoritmi;
-import Algoritmi.App;
 import javax.swing.*;
 import java.awt.*;
 
