@@ -1,4 +1,5 @@
 package Algoritmi;
+import javax.swing.JTextArea;
 
 public final class App {
 
@@ -11,19 +12,26 @@ public final class App {
 
     private double[][] cost;
     private String[][] operations;
+    private long time;
 
     private App(int x, int y) {
         this.cost = new double[x+1][y+1];
         this.operations = new String[x+1][y+1];
+        this.time = 0;
     }
 
     public String[][] getOperations(){
         return this.operations;
     }
 
+    public long getTime(){
+        return this.time;
+    }
+
 
     public static App editDistance(String x, String y){
         App solution = new App(x.length(), y.length());
+        long startTime = System.nanoTime();
         for(int i=0; i<=x.length(); i++){
             solution.cost[i][0] = i * App.deleteCost;
             solution.operations[i][0] = "DELETE";
@@ -67,10 +75,12 @@ public final class App {
                 solution.operations[x.length()][y.length()] = "KILL " + i;
             }
         }
+        long endTime=System.nanoTime();
+        solution.time = endTime - startTime;
         return solution;
     }
 
-    public static void operationsPrint(String[][] op, int i, int j){
+    public static void operationsPrint(String[][] op, int i, int j, JTextArea text){
         int i1=0, j1=0;
         if(i == 0 && j == 0)
             return;
@@ -79,9 +89,13 @@ public final class App {
                 i1 = i-1;
                 j1 = j-1;
             }
-            if(op[i][j].substring(0, 6).equals("INSERT")){
+            else if(op[i][j].substring(0, 6).equals("INSERT")){
                 i1 = i;
                 j1 = j-1;
+            }
+            else{
+                i1 = Integer.parseInt(op[i][j].substring(5));
+                j1 = j;
             }
         }
         else if(op[i][j].equals("COPY")){
@@ -97,11 +111,11 @@ public final class App {
             j1 = j;
         }
         else{
-            i1 = Integer.parseInt(op[i][j].substring(5,6));
+            i1 = Integer.parseInt(op[i][j].substring(5));
             j1 = j;
         }
-        App.operationsPrint(op, i1, j1);
-        System.out.println(op[i][j]);
+        App.operationsPrint(op, i1, j1, text);
+        text.append(op[i][j] + "\n");
     }
 
 }
